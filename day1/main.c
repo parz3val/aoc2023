@@ -36,6 +36,8 @@ void reverse_string(const char *str, int strlength, char *hold) {
 }
 
 int process_line(char *line, int length) {
+  /* Here we iterate through the line character by character and break when the
+   * first digit is found */
   int first;
   int last;
   for (int i = 0; line[i]; i++) {
@@ -45,7 +47,8 @@ int process_line(char *line, int length) {
     }
   }
 
-  // looping from back
+  // looping from back we can get the last digit by breaking when the first
+  // digit is found
   for (int i = length; i >= 0; i--) {
 
     if (isdigit(line[i])) {
@@ -83,6 +86,18 @@ int find_first_digit(char *str) {
 }
 
 int first_digit_recurse(char *str, int current_count) {
+
+  /* To find the first digit in any form
+   * First we split the string into two parts using the digits we have stored in
+   * an array If we find our digit and it is at the first index we return the
+   * digit
+   * If the digit is found, but there is some part at the begining, we check if
+   * there is another Digit from the list recursively, if there isn't a digit,
+   * we then check if there is Digit in the number form. If there is digit we
+   * return the number. If there is not, we call the function again with another
+   * number from the list
+   * */
+
   split_string_t *ss;
   ss = (split_string_t *)malloc(sizeof(split_string_t));
   if (current_count < 9) {
@@ -109,6 +124,11 @@ int first_digit_recurse(char *str, int current_count) {
 }
 
 int last_digit_recurse(char *str, int current_count) {
+  /** To find the last digit,
+   * we are doing very stupid apprach, where we reversed the line and try to
+   * find the digit using the find first digit recursively.
+   * Weirdly it worked. 
+   */
   split_string_t *ss;
   ss = (split_string_t *)malloc(sizeof(split_string_t));
   if (current_count < 9) {
@@ -150,8 +170,8 @@ int part_deu(char *line, int length) {
 }
 
 int main() {
-
-  printf("Day One Homie!\n");
+  /** Solved the day one part one and two using the stupid bruteforcing approach
+   */
 
   // READING THE FILE
   FILE *file = fopen("input.txt", "r");
